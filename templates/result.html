@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Show/Hide Divs based on Dropdown Selection</title>
+    <style>
+        .noncopy {
+            -webkit-user-select: none;
+            -khtml-user-select: none;
+            -moz-user-select: none;
+            -ms-user-select: none;
+            -o-user-select: none;
+            user-select: none;
+        }
+    </style>
+    <script>
+        function showHideDivs(selectedIndex) {
+            // Get all div elements inside a container
+            var container = document.getElementById("divContainer");
+            var divs = container.getElementsByTagName("div");
+            
+            // Hide all divs
+            for (var i = 0; i < divs.length; i++) {
+                divs[i].style.display = "none";
+            }
+            
+            // Show the selected div based on its index
+            if (selectedIndex >= 0 && selectedIndex < divs.length) {
+                divs[selectedIndex].style.display = "block";
+            }
+        }
+
+        // Generate the dropdown options and their values based on the number of divs
+        window.onload = function () {
+            var container = document.getElementById("divContainer");
+            var divs = container.getElementsByTagName("div");
+            var select = document.getElementById("selectDiv");
+
+            for (var i = 0; i < divs.length; i++) {
+                var option = document.createElement("option");
+                option.value = i;
+                option.text = "Div " + (i + 1);
+                select.appendChild(option);
+            }
+        };
+    </script>
+</head>
+<body>
+    <div class="noncopy">
+        <h1>Show/Hide Divs based on Dropdown Selection</h1>
+        
+        <label for="selectDiv">Select a Div:</label>
+        <select id="selectDiv" onchange="showHideDivs(this.selectedIndex)">
+        </select>
+    </div>
+    
+    <div id="divContainer">
+        {% for item in data %}
+           <div><pre>{{item}}</pre></div>
+        {% endfor %}
+    </div>
+</body>
+</html>
